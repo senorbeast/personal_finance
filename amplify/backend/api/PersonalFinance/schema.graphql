@@ -1,0 +1,6 @@
+type UserDetails @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  bank_balance: Int
+  last_updated: AWSDateTime
+}

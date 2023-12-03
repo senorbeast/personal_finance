@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-personalfinance-staging-182651-authRole",
+      "UnauthRoleArn": "arn:aws:iam::002769702107:role/amplify-personalfinance-staging-182651-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::002769702107:role/amplify-personalfinance-staging-182651-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-personalfinance-staging-182651-deployment",
+      "UnauthRoleName": "amplify-personalfinance-staging-182651-unauthRole",
+      "StackName": "amplify-personalfinance-staging-182651",
+      "StackId": "arn:aws:cloudformation:us-east-1:002769702107:stack/amplify-personalfinance-staging-182651/5d306050-9140-11ee-a90c-0aee66aac545",
+      "AmplifyAppId": "d3aiqiza5bctbw"
+    },
+    "categories": {
+      "auth": {
+        "PersonalFinance": {}
+      }
+    }
+  }
+}
