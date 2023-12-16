@@ -11,7 +11,8 @@ class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   AuthenticationBloc() : super(AuthenticationState.defaultState()) {
     on<SignUpUser>(_onSignUpUser);
-    on<SignInUser>(_onSignInUser);
+    on<LogInUser>(_onSignInUser);
+    on<ChangeLoginSignUp>(_onChangedLoginOrSignUp);
   }
 
   void _onSignUpUser(
@@ -22,7 +23,7 @@ class AuthenticationBloc
       // final user = await authenticationUseCase.signUp(event.email, event.password);
 
       // Assuming user creation was successful, emit a new state with authenticated status
-      emit(AuthenticationState._(
+      emit(state.copyWith(
         status: AuthenticationStatus.authenticated,
         username: "FROM AWS",
         email: event.email,
@@ -33,15 +34,14 @@ class AuthenticationBloc
     }
   }
 
-  void _onSignInUser(
-      SignInUser event, Emitter<AuthenticationState> emit) async {
+  void _onSignInUser(LogInUser event, Emitter<AuthenticationState> emit) async {
     try {
       // TODO: Use your authentication use case or repository to sign in the user
       // For example:
       // final user = await authenticationUseCase.signIn(event.email, event.password);
 
       // Assuming sign-in was successful, emit a new state with authenticated status
-      emit(AuthenticationState._(
+      emit(state.copyWith(
         status: AuthenticationStatus.authenticated,
         username: "FROM AWS",
         email: event.email,
@@ -50,5 +50,12 @@ class AuthenticationBloc
       // Handle sign-in failure, emit an unauthenticated state or show an error
       emit(AuthenticationState.defaultState());
     }
+  }
+
+  void _onChangedLoginOrSignUp(
+      ChangeLoginSignUp event, Emitter<AuthenticationState> emit) {
+    emit(state.copyWith(
+      loginOrSignUp: event.loginOrSignUp,
+    ));
   }
 }

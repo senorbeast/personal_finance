@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:personal_finance/auth/presentation/bloc/authentication_bloc.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({Key? key}) : super(key: key);
+class SignInView extends StatefulWidget {
+  const SignInView({Key? key}) : super(key: key);
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<SignInView> createState() => _SignInViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _SignInViewState extends State<SignInView> {
   String username = '';
+  String email = '';
   String password = '';
 
   @override
@@ -23,20 +24,20 @@ class _LoginViewState extends State<LoginView> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _loginSection(tt, cs),
+          _signInSection(tt, cs),
           TextButton(
               onPressed: () {
                 context
                     .read<AuthenticationBloc>()
-                    .add(const ChangeLoginSignUp(LoginOrSignUp.signup));
+                    .add(const ChangeLoginSignUp(LoginOrSignUp.login));
               },
-              child: const Text("Don't have a account ? Sign Up"))
+              child: const Text("Already have a account ? Login"))
         ],
       ),
     );
   }
 
-  Column _loginSection(
+  Column _signInSection(
     TextTheme tt,
     ColorScheme cs,
   ) {
@@ -47,7 +48,7 @@ class _LoginViewState extends State<LoginView> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              "Log In",
+              "Sign Up",
               style: tt.titleLarge!.copyWith(
                 fontSize: 48,
                 fontWeight: FontWeight.bold,
@@ -72,6 +73,20 @@ class _LoginViewState extends State<LoginView> {
         ),
         const SizedBox(height: 16.0),
         TextField(
+          style: tt.titleMedium!.copyWith(
+            color: cs.onTertiaryContainer,
+          ),
+          decoration: const InputDecoration(
+            labelText: 'Email',
+          ),
+          onChanged: (value) {
+            setState(() {
+              email = value;
+            });
+          },
+        ),
+        const SizedBox(height: 16.0),
+        TextField(
           obscureText: true,
           style: tt.titleMedium!.copyWith(
             color: cs.onTertiaryContainer,
@@ -88,7 +103,7 @@ class _LoginViewState extends State<LoginView> {
         const SizedBox(height: 24.0),
         ElevatedButton(
           onPressed: () {},
-          child: const Text('Login'),
+          child: const Text('Sign Up'),
         ),
       ],
     );

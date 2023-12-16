@@ -110,6 +110,17 @@ class CustomTheme extends ThemeExtension<CustomTheme> {
       textTheme: textTheme,
       // appBarTheme: AppBarTheme(
       //     ),
+      inputDecorationTheme: InputDecorationTheme(
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: colorScheme.primary),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: colorScheme.primary),
+        ),
+        labelStyle: TextStyle(color: colorScheme.primary),
+        hintStyle: TextStyle(color: colorScheme.primary),
+        fillColor: colorScheme.primary,
+      ),
       cardTheme: CardTheme(color: colorScheme.surfaceVariant),
       // scaffoldBackgroundColor: isLight ? neutralColor : colorScheme.background,
       // tabBarTheme: TabBarTheme(
