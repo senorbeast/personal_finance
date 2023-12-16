@@ -1,9 +1,6 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:personal_finance/auth/domain/repository/auth_repository.dart';
-
-final getIt = GetIt.instance;
 
 @injectable
 class AuthenticationUseCase {

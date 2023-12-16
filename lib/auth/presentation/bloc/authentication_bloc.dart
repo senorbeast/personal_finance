@@ -19,6 +19,7 @@ class AuthenticationBloc
     on<LogInUser>(_onSignInUser);
     on<ChangeAuthStep>(_onChangeAuthStep);
     on<EnterConfirmationCode>(_onEnterConfirmationCode);
+    on<GetCurrentUser>(_onGetCurrentUser);
   }
 
   void _onSignUpUser(
@@ -78,6 +79,8 @@ class AuthenticationBloc
             ToastifyModel(title: "Error", description: result.value.toString());
       }
 
+      add(const GetCurrentUser());
+
       // Assuming sign-in was successful, emit a new state with authenticated status
       emit(state.copyWith(
         status: AuthenticationStatus.authenticated,
@@ -97,6 +100,16 @@ class AuthenticationBloc
     ));
   }
 
+  void _onGetCurrentUser(
+      GetCurrentUser event, Emitter<AuthenticationState> emit) async {
+    try {
+      final AuthUser authUser = await _authenticationUseCase.getCurrentUser();
+      emit(state.copyWith(authUser: authUser));
+    } catch (e) {
+      print("No user found");
+    }
+  }
+
   void _onEnterConfirmationCode(
       EnterConfirmationCode event, Emitter<AuthenticationState> emit) async {
     try {
@@ -113,6 +126,7 @@ class AuthenticationBloc
             ToastifyModel(title: "Error", description: result.value.toString());
       }
 
+      add(const GetCurrentUser());
       emit(state.copyWith(
         status: AuthenticationStatus.authenticated,
         toastifyModel: toastifyModel,

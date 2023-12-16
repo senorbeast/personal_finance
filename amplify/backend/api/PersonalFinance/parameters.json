@@ -1,5 +1,12 @@
 {
-  "AppSyncApiName": "PersonalFinance",
+  "AppSyncApiName": "personalfinance",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authPersonalFinance",
+      "Outputs.UserPoolId"
+    ]
+  },
+  "AuthModeLastUpdated": "2023-12-16T14:53:55.358Z"
 }

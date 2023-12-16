@@ -27,11 +27,13 @@ class AuthenticationState extends Equatable {
   final String username;
   final String email;
   final AuthStep authStep;
+  final AuthUser? authUser;
   final ToastifyModel toastifyModel;
 
   const AuthenticationState({
     required this.status,
     required this.username,
+    required this.authUser,
     required this.email,
     required this.authStep,
     required this.toastifyModel,
@@ -44,16 +46,18 @@ class AuthenticationState extends Equatable {
       username: '',
       email: '',
       authStep: AuthStep.signup,
+      authUser: null,
       toastifyModel: ToastifyModel.defaultState(),
     );
   }
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         status,
         username,
         email,
         authStep,
+        authUser,
         toastifyModel,
       ];
 
@@ -63,12 +67,14 @@ class AuthenticationState extends Equatable {
     String? email,
     AuthStep? authStep,
     ToastifyModel? toastifyModel,
+    AuthUser? authUser,
   }) {
     return AuthenticationState(
       status: status ?? this.status,
       email: email ?? this.email,
       username: username ?? this.username,
       authStep: authStep ?? this.authStep,
+      authUser: authUser ?? this.authUser,
       toastifyModel: toastifyModel ?? this.toastifyModel,
     );
   }

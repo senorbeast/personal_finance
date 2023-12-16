@@ -93,13 +93,31 @@ class CustomTheme extends ThemeExtension<CustomTheme> {
   ThemeData _base(final ColorScheme colorScheme) {
     final primaryTextTheme = GoogleFonts.poppinsTextTheme();
     final secondaryTextTheme = GoogleFonts.poppinsTextTheme();
+    // Customize the default text color here
+    final textColor = colorScheme.onTertiaryContainer;
+
     final textTheme = primaryTextTheme.copyWith(
-      displaySmall: secondaryTextTheme.displaySmall,
-      displayMedium: secondaryTextTheme.displayMedium,
-      displayLarge: secondaryTextTheme.displayLarge,
-      headlineSmall: secondaryTextTheme.headlineSmall,
-      headlineMedium: secondaryTextTheme.headlineMedium,
-      headlineLarge: secondaryTextTheme.headlineLarge,
+      bodyLarge: primaryTextTheme.bodyLarge!.copyWith(color: textColor),
+      bodyMedium: primaryTextTheme.bodyMedium!.copyWith(color: textColor),
+      bodySmall: primaryTextTheme.bodyMedium!.copyWith(color: textColor),
+      displaySmall: secondaryTextTheme.displaySmall!.copyWith(
+        color: textColor,
+      ),
+      displayMedium: secondaryTextTheme.displayMedium!.copyWith(
+        color: textColor,
+      ),
+      displayLarge: secondaryTextTheme.displayLarge!.copyWith(
+        color: textColor,
+      ),
+      headlineSmall: secondaryTextTheme.headlineSmall!.copyWith(
+        color: textColor,
+      ),
+      headlineMedium: secondaryTextTheme.headlineMedium!.copyWith(
+        color: textColor,
+      ),
+      headlineLarge: secondaryTextTheme.headlineLarge!.copyWith(
+        color: textColor,
+      ),
     );
 
     return ThemeData(

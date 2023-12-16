@@ -34,7 +34,7 @@ class _AppRootState extends State<AppRoot> {
           appBar: AppBar(
             backgroundColor: cs.onTertiary,
             title: Text(
-              'Manage your Finance',
+              'Wealth Manager',
               style: tt.titleMedium!.copyWith(
                 color: cs.onTertiaryContainer,
               ),

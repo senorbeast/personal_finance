@@ -1,6 +1,16 @@
-type UserDetails @model @auth(rules: [{allow: public}]) {
+type Transaction @model @auth(rules: [{allow: public}, {allow: owner, operations: [create, read, update]}, {allow: private, provider: iam}]) {
   id: ID!
-  name: String
-  bank_balance: Int
-  last_updated: AWSDateTime
+  amount: Float!
+  datetime: AWSDateTime!
+  otherAccount: String!
+  userID: ID! @index(name: "byUser")
 }
+
+type User @model @auth(rules: [{allow: public}, {allow: owner, operations: [read, update]}, {allow: private, provider: iam}]) {
+  id: ID!
+  email: AWSEmail!
+  balance: Float!
+  accountNo: String!
+  Transactions: [Transaction] @hasMany(indexName: "byUser", fields: ["id"])
+}
+ 

@@ -7,9 +7,9 @@ import 'package:personal_finance/auth/presentation/bloc/authentication_bloc.dart
 import 'package:personal_finance/auth/presentation/views/confirmation_view.dart';
 import 'package:personal_finance/auth/presentation/views/login_view.dart';
 import 'package:personal_finance/auth/presentation/views/sign_up_view.dart';
-import 'package:personal_finance/auth/presentation/widgets/auth_success.dart';
 import 'package:personal_finance/core/presentation/widgets/toastify.dart';
-import 'package:toastification/toastification.dart';
+import 'package:personal_finance/core/setup/injectable_setup.dart';
+import 'package:personal_finance/home/presentation/views/homepage.dart';
 
 class AuthenticationView extends StatelessWidget {
   const AuthenticationView({
@@ -64,7 +64,7 @@ class _AuthenticationFormState extends State<AuthenticationForm> {
               }
             }
           } else if (state.status == AuthenticationStatus.authenticated) {
-            return const AuthSuccess();
+            return const Homepage();
           }
           return const Center(child: CircularProgressIndicator());
         },

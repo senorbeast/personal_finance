@@ -45,4 +45,8 @@ class EnterConfirmationCode extends AuthenticationEvent {
   List<Object> get props => [confirmationCode];
 }
 
+class GetCurrentUser extends AuthenticationEvent {
+  const GetCurrentUser();
+}
+
 class SignOut extends AuthenticationEvent {}

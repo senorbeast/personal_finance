@@ -1,12 +1,12 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:injectable/injectable.dart';
-import 'package:personal_finance/auth/data/datasources/remote.dart';
+import 'package:personal_finance/auth/data/datasources/amplify_auth.dart';
 import 'package:personal_finance/auth/domain/repository/auth_repository.dart';
 
 @Injectable(as: AuthRepository)
 @lazySingleton
 class AuthRepositoryImpl extends AuthRepository {
-  final RemoteDataSource _remoteDataSource;
+  final AmplifyAuth _remoteDataSource;
   AuthRepositoryImpl(this._remoteDataSource);
 
   @override

@@ -3,7 +3,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class RemoteDataSource {
+class AmplifyAuth {
   Future<bool> isUserSignedIn() async {
     final result = await Amplify.Auth.fetchAuthSession();
     return result.isSignedIn;
@@ -74,6 +74,7 @@ class RemoteDataSource {
   Future<AuthResult<AuthSignInStep>> signInUser(
       String username, String password) async {
     try {
+      await Amplify.Auth.signOut();
       final result = await Amplify.Auth.signIn(
         username: username,
         password: password,
