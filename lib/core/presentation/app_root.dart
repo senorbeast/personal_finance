@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:personal_finance/core/presentation/theme.dart';
+import 'package:personal_finance/auth/presentation/view/authentication_view.dart';
+import 'package:personal_finance/core/presentation/theme/theme.dart';
 import 'package:personal_finance/core/presentation/widgets/main_drawer.dart';
 
 class AppRoot extends StatefulWidget {
@@ -49,13 +50,7 @@ class _AppRootState extends State<AppRoot> {
             ],
           ),
           drawer: const MainDrawer(),
-          body: Text(
-            "Hi",
-            style: tt.headlineLarge!.copyWith(
-              color: cs.onSurfaceVariant,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          body: const AuthenticationView(),
         );
       }),
     );

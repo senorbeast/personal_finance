@@ -228,10 +228,10 @@ class __$$ErrorImplCopyWithImpl<T, $Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? errorResultModel = freezed,
+    Object? errorResultModel = null,
   }) {
     return _then(_$ErrorImpl<T>(
-      errorResultModel: freezed == errorResultModel
+      errorResultModel: null == errorResultModel
           ? _value.errorResultModel
           : errorResultModel // ignore: cast_nullable_to_non_nullable
               as ErrorResultModel,
@@ -257,13 +257,12 @@ class _$ErrorImpl<T> implements Error<T> {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ErrorImpl<T> &&
-            const DeepCollectionEquality()
-                .equals(other.errorResultModel, errorResultModel));
+            (identical(other.errorResultModel, errorResultModel) ||
+                other.errorResultModel == errorResultModel));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(errorResultModel));
+  int get hashCode => Object.hash(runtimeType, errorResultModel);
 
   @JsonKey(ignore: true)
   @override
