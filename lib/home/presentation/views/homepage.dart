@@ -63,6 +63,7 @@ class _HomepageState extends State<Homepage> {
                     },
                     child: const Text("Fetch Details"),
                   ),
+                  const SizedBox(height: 10),
                   Text(
                     "User Data: ${state.user?.toJson().toString()}",
                     style: tt.titleMedium!.copyWith(
@@ -70,6 +71,7 @@ class _HomepageState extends State<Homepage> {
                       color: cs.onTertiaryContainer,
                     ),
                   ),
+                  const SizedBox(height: 10),
                   Text(
                     "All Transactions",
                     style: tt.titleMedium!.copyWith(
@@ -77,6 +79,7 @@ class _HomepageState extends State<Homepage> {
                       color: cs.onTertiaryContainer,
                     ),
                   ),
+                  const SizedBox(height: 10),
                   TransactionTable(transactions: state.transactions),
                 ],
               );

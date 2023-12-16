@@ -19,7 +19,7 @@ class TransactionTable extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: DataTable(
-          columnSpacing: 5,
+          columnSpacing: 25,
           columns: const [
             DataColumn(label: Text('Amount')),
             DataColumn(label: Text('Datetime')),
@@ -38,7 +38,7 @@ class TransactionTable extends StatelessWidget {
                   DataCell(
                     Align(
                       alignment: Alignment.center,
-                      child: Text(transaction.amount.toString()),
+                      child: Text("Rs. ${transaction.amount.toString()}"),
                     ),
                   ),
                   DataCell(
