@@ -40,13 +40,7 @@
           ],
           "passwordPolicyMinLength": 8
         },
-        "signupAttributes": [
-          "EMAIL",
-          "GIVEN_NAME",
-          "PICTURE",
-          "GENDER",
-          "LOCALE"
-        ],
+        "signupAttributes": [],
         "socialProviders": [],
         "usernameAttributes": [
           "EMAIL"

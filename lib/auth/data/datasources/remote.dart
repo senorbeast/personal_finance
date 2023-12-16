@@ -1,3 +1,4 @@
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:injectable/injectable.dart';
 
@@ -15,7 +16,7 @@ class RemoteDataSource {
 
   /// Signs a user up with a username, password, and email. The required
   /// attributes may be different depending on your app's configuration.
-  Future<void> signUpUser({
+  Future<AuthResult<AuthSignUpStep>> signUpUser({
     required String username,
     required String password,
     required String email,
@@ -34,13 +35,13 @@ class RemoteDataSource {
           userAttributes: userAttributes,
         ),
       );
-      await _handleSignUpResult(result);
+      return _handleSignUpResult(result);
     } on AuthException catch (e) {
-      _safePrint('Error signing up user: ${e.message}');
+      return AuthResult.error(e);
     }
   }
 
-  Future<void> confirmUser({
+  Future<AuthResult<AuthSignUpStep>> confirmUser({
     required String username,
     required String confirmationCode,
   }) async {
@@ -51,65 +52,85 @@ class RemoteDataSource {
       );
       // Check if further confirmations are needed or if
       // the sign up is complete.
-      await _handleSignUpResult(result);
+      return _handleSignUpResult(result);
     } on AuthException catch (e) {
       _safePrint('Error confirming user: ${e.message}');
+      return AuthResult.error(e);
     }
   }
 
-  Future<void> signInUser(String username, String password) async {
+  AuthResult<AuthSignUpStep> _handleSignUpResult(SignUpResult result) {
+    switch (result.nextStep.signUpStep) {
+      case AuthSignUpStep.confirmSignUp:
+        final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
+        _handleCodeDelivery(codeDeliveryDetails);
+        return const AuthResult.success(AuthSignUpStep.confirmSignUp);
+      case AuthSignUpStep.done:
+        _safePrint('Sign up is complete');
+        return const AuthResult.success(AuthSignUpStep.done);
+    }
+  }
+
+  Future<AuthResult<AuthSignInStep>> signInUser(
+      String username, String password) async {
     try {
       final result = await Amplify.Auth.signIn(
         username: username,
         password: password,
       );
-      await _handleSignInResult(result);
+      return _handleSignInResult(result);
     } on AuthException catch (e) {
       _safePrint('Error signing in: ${e.message}');
+      return AuthResult.error(e);
     }
   }
 
-  Future<void> _handleSignUpResult(SignUpResult result) async {
-    switch (result.nextStep.signUpStep) {
-      case AuthSignUpStep.confirmSignUp:
-        final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
-        _handleCodeDelivery(codeDeliveryDetails);
-        break;
-      case AuthSignUpStep.done:
-        _safePrint('Sign up is complete');
-        break;
-    }
-  }
-
-  Future<void> _handleSignInResult(SignInResult result) async {
+  Future<AuthResult<AuthSignInStep>> _handleSignInResult(
+      SignInResult result) async {
     switch (result.nextStep.signInStep) {
       case AuthSignInStep.confirmSignInWithSmsMfaCode:
         final codeDeliveryDetails = result.nextStep.codeDeliveryDetails!;
         _handleCodeDelivery(codeDeliveryDetails);
-        break;
+        return const AuthResult.success(
+            AuthSignInStep.confirmSignInWithSmsMfaCode);
       case AuthSignInStep.confirmSignInWithNewPassword:
         _safePrint('Enter a new password to continue signing in');
-        break;
+        return const AuthResult.success(
+            AuthSignInStep.confirmSignInWithNewPassword);
       case AuthSignInStep.confirmSignInWithCustomChallenge:
         final parameters = result.nextStep.additionalInfo;
         final prompt = parameters['prompt']!;
         _safePrint(prompt);
-        break;
+        return const AuthResult.success(
+          AuthSignInStep.confirmSignInWithCustomChallenge,
+        );
       case AuthSignInStep.resetPassword:
         // Handle reset password if needed
-        break;
+        return const AuthResult.success(
+          AuthSignInStep.confirmSignInWithNewPassword,
+        );
       case AuthSignInStep.confirmSignUp:
         // Handle confirming sign up if needed
-        break;
+        return const AuthResult.success(
+          AuthSignInStep.confirmSignUp,
+        );
       case AuthSignInStep.continueSignInWithMfaSelection:
-        break;
+        return const AuthResult.success(
+          AuthSignInStep.continueSignInWithMfaSelection,
+        );
       case AuthSignInStep.continueSignInWithTotpSetup:
-        break;
+        return const AuthResult.success(
+          AuthSignInStep.continueSignInWithTotpSetup,
+        );
       case AuthSignInStep.confirmSignInWithTotpMfaCode:
-        break;
+        return const AuthResult.success(
+          AuthSignInStep.confirmSignInWithTotpMfaCode,
+        );
       case AuthSignInStep.done:
         _safePrint('Sign in is complete');
-        break;
+        return const AuthResult.success(
+          AuthSignInStep.done,
+        );
     }
   }
 

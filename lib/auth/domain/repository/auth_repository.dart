@@ -5,17 +5,18 @@ abstract class AuthRepository {
 
   Future<AuthUser> getCurrentUser();
 
-  Future<void> signUpUser({
+  Future<AuthResult<AuthSignUpStep>> signUpUser({
     required String username,
     required String password,
     required String email,
     String? phoneNumber,
   });
 
-  Future<void> confirmUser({
+  Future<AuthResult<AuthSignUpStep>> confirmUser({
     required String username,
     required String confirmationCode,
   });
 
-  Future<void> signInUser(String username, String password);
+  Future<AuthResult<AuthSignInStep>> signInUser(
+      String username, String password);
 }

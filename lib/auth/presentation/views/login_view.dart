@@ -28,7 +28,7 @@ class _LoginViewState extends State<LoginView> {
               onPressed: () {
                 context
                     .read<AuthenticationBloc>()
-                    .add(const ChangeLoginSignUp(LoginOrSignUp.signup));
+                    .add(const ChangeAuthStep(AuthStep.signup));
               },
               child: const Text("Don't have a account ? Sign Up"))
         ],
@@ -57,37 +57,45 @@ class _LoginViewState extends State<LoginView> {
           ],
         ),
         const SizedBox(height: 16.0),
-        TextField(
-          style: tt.titleMedium!.copyWith(
-            color: cs.onTertiaryContainer,
-          ),
-          decoration: const InputDecoration(
-            labelText: 'Username',
-          ),
-          onChanged: (value) {
-            setState(() {
-              username = value;
-            });
-          },
+        Column(
+          children: [
+            TextField(
+              style: tt.titleMedium!.copyWith(
+                color: cs.onTertiaryContainer,
+              ),
+              decoration: const InputDecoration(
+                labelText: 'Username',
+              ),
+              onChanged: (value) {
+                setState(() {
+                  username = value;
+                });
+              },
+            ),
+            const SizedBox(height: 16.0),
+            TextField(
+              obscureText: true,
+              style: tt.titleMedium!.copyWith(
+                color: cs.onTertiaryContainer,
+              ),
+              decoration: const InputDecoration(
+                labelText: 'Password',
+              ),
+              onChanged: (value) {
+                setState(() {
+                  password = value;
+                });
+              },
+            ),
+            const SizedBox(height: 24.0),
+          ],
         ),
-        const SizedBox(height: 16.0),
-        TextField(
-          obscureText: true,
-          style: tt.titleMedium!.copyWith(
-            color: cs.onTertiaryContainer,
-          ),
-          decoration: const InputDecoration(
-            labelText: 'Password',
-          ),
-          onChanged: (value) {
-            setState(() {
-              password = value;
-            });
-          },
-        ),
-        const SizedBox(height: 24.0),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            context
+                .read<AuthenticationBloc>()
+                .add(LogInUser(username, password));
+          },
           child: const Text('Login'),
         ),
       ],

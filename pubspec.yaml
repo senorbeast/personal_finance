@@ -58,6 +58,7 @@ dependencies:
   objectbox_sync_flutter_libs: any
   flutter_native_splash: ^2.3.7
   flutter_launcher_icons: ^0.13.1
+  toastification: ^1.1.0
 
 
 dev_dependencies:

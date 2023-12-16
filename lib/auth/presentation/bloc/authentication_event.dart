@@ -8,31 +8,41 @@ abstract class AuthenticationEvent {
 
 class SignUpUser extends AuthenticationEvent {
   final String email;
+  final String username;
   final String password;
 
-  const SignUpUser(this.email, this.password);
+  const SignUpUser(this.email, this.username, this.password);
 
   @override
-  List<Object> get props => [email, password];
+  List<Object> get props => [email, username, password];
 }
 
 class LogInUser extends AuthenticationEvent {
-  final String email;
+  final String username;
   final String password;
 
-  const LogInUser(this.email, this.password);
+  const LogInUser(this.username, this.password);
 
   @override
-  List<Object> get props => [email, password];
+  List<Object> get props => [username, password];
 }
 
-class ChangeLoginSignUp extends AuthenticationEvent {
-  final LoginOrSignUp loginOrSignUp;
+class ChangeAuthStep extends AuthenticationEvent {
+  final AuthStep authStep;
 
-  const ChangeLoginSignUp(this.loginOrSignUp);
+  const ChangeAuthStep(this.authStep);
 
   @override
-  List<Object> get props => [loginOrSignUp];
+  List<Object> get props => [authStep];
+}
+
+class EnterConfirmationCode extends AuthenticationEvent {
+  final String confirmationCode;
+
+  const EnterConfirmationCode(this.confirmationCode);
+
+  @override
+  List<Object> get props => [confirmationCode];
 }
 
 class SignOut extends AuthenticationEvent {}

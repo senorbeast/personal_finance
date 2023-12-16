@@ -15,6 +15,7 @@ import '../../auth/data/datasources/remote.dart' as _i3;
 import '../../auth/data/repository/auth_repository_impl.dart' as _i5;
 import '../../auth/domain/repository/auth_repository.dart' as _i4;
 import '../../auth/domain/usecases/auth_use_case.dart' as _i6;
+import '../../auth/presentation/bloc/authentication_bloc.dart' as _i7;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -32,6 +33,8 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i5.AuthRepositoryImpl(gh<_i3.RemoteDataSource>()));
     gh.factory<_i6.AuthenticationUseCase>(
         () => _i6.AuthenticationUseCase(gh<_i4.AuthRepository>()));
+    gh.factory<_i7.AuthenticationBloc>(
+        () => _i7.AuthenticationBloc(gh<_i6.AuthenticationUseCase>()));
     return this;
   }
 }

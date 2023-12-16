@@ -1,3 +1,4 @@
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:personal_finance/auth/domain/repository/auth_repository.dart';
@@ -13,14 +14,18 @@ class AuthenticationUseCase {
     return await _authRepository.isUserSignedIn();
   }
 
-  Future<void> signUp({
+  Future<AuthUser> getCurrentUser() async {
+    return await _authRepository.getCurrentUser();
+  }
+
+  Future<AuthResult<AuthSignUpStep>> signUp({
     required String username,
     required String password,
     required String email,
     String? phoneNumber,
   }) async {
     // Additional business logic before calling repository
-    await _authRepository.signUpUser(
+    return await _authRepository.signUpUser(
       username: username,
       password: password,
       email: email,
@@ -28,20 +33,23 @@ class AuthenticationUseCase {
     );
   }
 
-  Future<void> confirmSignUp({
+  Future<AuthResult<AuthSignUpStep>> confirmSignUp({
     required String username,
     required String confirmationCode,
   }) async {
     // Additional business logic before calling repository
-    await _authRepository.confirmUser(
+    return await _authRepository.confirmUser(
       username: username,
       confirmationCode: confirmationCode,
     );
   }
 
-  Future<void> signIn(String username, String password) async {
+  Future<AuthResult<AuthSignInStep>> signIn({
+    required String username,
+    required String password,
+  }) async {
     // Additional business logic before calling repository
-    await _authRepository.signInUser(username, password);
+    return await _authRepository.signInUser(username, password);
   }
 
   // Future<void> signOut() async {

@@ -20,7 +20,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<void> signUpUser({
+  Future<AuthResult<AuthSignUpStep>> signUpUser({
     required String username,
     required String password,
     required String email,
@@ -35,7 +35,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<void> confirmUser({
+  Future<AuthResult<AuthSignUpStep>> confirmUser({
     required String username,
     required String confirmationCode,
   }) async {
@@ -46,7 +46,8 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<void> signInUser(String username, String password) async {
+  Future<AuthResult<AuthSignInStep>> signInUser(
+      String username, String password) async {
     return _remoteDataSource.signInUser(username, password);
   }
 }

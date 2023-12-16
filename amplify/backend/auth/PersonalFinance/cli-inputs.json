@@ -3,7 +3,7 @@
   "cognitoConfig": {
     "identityPoolName": "testAuthIdentityPool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "personb0366664",
+    "resourceNameTruncated": "person66072d7c",
     "userPoolName": "PersonalFinance",
     "autoVerifiedAttributes": [
       "email"
@@ -24,21 +24,15 @@
       "Requires Symbols",
       "Requires Uppercase"
     ],
-    "requiredAttributes": [
-      "email",
-      "given_name",
-      "picture",
-      "gender",
-      "locale"
-    ],
+    "requiredAttributes": [],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [],
     "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "Personb0366664_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "Person66072d7c_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "b0366664",
+    "sharedId": "66072d7c",
     "resourceName": "PersonalFinance",
     "authSelections": "identityPoolAndUserPool",
     "serviceName": "Cognito",

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:personal_finance/auth/presentation/bloc/authentication_bloc.dart';
 
-class SignInView extends StatefulWidget {
-  const SignInView({Key? key}) : super(key: key);
+class SignUpView extends StatefulWidget {
+  const SignUpView({Key? key}) : super(key: key);
 
   @override
-  State<SignInView> createState() => _SignInViewState();
+  State<SignUpView> createState() => _SignUpViewState();
 }
 
-class _SignInViewState extends State<SignInView> {
+class _SignUpViewState extends State<SignUpView> {
   String username = '';
   String email = '';
   String password = '';
@@ -24,12 +24,12 @@ class _SignInViewState extends State<SignInView> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _signInSection(tt, cs),
+          _signUpSection(tt, cs),
           TextButton(
               onPressed: () {
                 context
                     .read<AuthenticationBloc>()
-                    .add(const ChangeLoginSignUp(LoginOrSignUp.login));
+                    .add(const ChangeAuthStep(AuthStep.login));
               },
               child: const Text("Already have a account ? Login"))
         ],
@@ -37,7 +37,7 @@ class _SignInViewState extends State<SignInView> {
     );
   }
 
-  Column _signInSection(
+  Column _signUpSection(
     TextTheme tt,
     ColorScheme cs,
   ) {
@@ -102,7 +102,11 @@ class _SignInViewState extends State<SignInView> {
         ),
         const SizedBox(height: 24.0),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            context.read<AuthenticationBloc>().add(
+                  SignUpUser(email, username, password),
+                );
+          },
           child: const Text('Sign Up'),
         ),
       ],

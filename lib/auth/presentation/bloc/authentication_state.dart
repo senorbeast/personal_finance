@@ -6,28 +6,45 @@ enum AuthenticationStatus {
   loading,
 }
 
-enum LoginOrSignUp { login, signup }
+enum AuthStep { login, signup, confirmationCode }
+
+class ToastifyModel {
+  final String title;
+  final String description;
+
+  const ToastifyModel({
+    required this.title,
+    required this.description,
+  });
+
+  factory ToastifyModel.defaultState() {
+    return const ToastifyModel(title: "", description: "");
+  }
+}
 
 class AuthenticationState extends Equatable {
   final AuthenticationStatus status;
   final String username;
   final String email;
-  final LoginOrSignUp loginOrSignUp;
+  final AuthStep authStep;
+  final ToastifyModel toastifyModel;
 
   const AuthenticationState({
     required this.status,
     required this.username,
     required this.email,
-    required this.loginOrSignUp,
+    required this.authStep,
+    required this.toastifyModel,
   });
 
   // Factory method for a default AuthenticationState
   factory AuthenticationState.defaultState() {
-    return const AuthenticationState(
+    return AuthenticationState(
       status: AuthenticationStatus.unauthenticated,
       username: '',
       email: '',
-      loginOrSignUp: LoginOrSignUp.signup,
+      authStep: AuthStep.signup,
+      toastifyModel: ToastifyModel.defaultState(),
     );
   }
 
@@ -36,20 +53,23 @@ class AuthenticationState extends Equatable {
         status,
         username,
         email,
-        loginOrSignUp,
+        authStep,
+        toastifyModel,
       ];
 
   AuthenticationState copyWith({
     AuthenticationStatus? status,
     String? username,
     String? email,
-    LoginOrSignUp? loginOrSignUp,
+    AuthStep? authStep,
+    ToastifyModel? toastifyModel,
   }) {
     return AuthenticationState(
       status: status ?? this.status,
       email: email ?? this.email,
       username: username ?? this.username,
-      loginOrSignUp: loginOrSignUp ?? this.loginOrSignUp,
+      authStep: authStep ?? this.authStep,
+      toastifyModel: toastifyModel ?? this.toastifyModel,
     );
   }
 }

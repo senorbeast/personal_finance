@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:personal_finance/auth/presentation/view/authentication_view.dart';
+import 'package:personal_finance/auth/presentation/views/authentication_view.dart';
 import 'package:personal_finance/core/presentation/theme/theme.dart';
 import 'package:personal_finance/core/presentation/widgets/main_drawer.dart';
 
@@ -49,7 +49,7 @@ class _AppRootState extends State<AppRoot> {
               ),
             ],
           ),
-          drawer: const MainDrawer(),
+          // drawer: const MainDrawer(),
           body: const AuthenticationView(),
         );
       }),
