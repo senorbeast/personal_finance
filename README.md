@@ -6,6 +6,11 @@ Features:
 
 Stack:  Flutter Bloc - AWS Amplify with feature wise Clean Architecture  
 
+#### Run project
+```bash
+flutter run
+```
+
 #### Separation of Concerns
 
 Features in auth, home (data-fetching), core (common) folder
